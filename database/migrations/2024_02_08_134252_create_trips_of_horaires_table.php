@@ -17,7 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('horaire_id');        
             $table->time('start_time')->nullable();
             $table->time('end_time')->nullable();
-        
+            $table->softDeletes();
             $table->foreign('driver_id')->references('id')->on('drivers');
             $table->foreign('horaire_id')->references('id')->on('horaires'); // Correction du nom de la table ici
         });

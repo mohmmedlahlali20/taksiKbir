@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('start_city');
             $table->string('end_city');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

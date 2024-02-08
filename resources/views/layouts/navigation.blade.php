@@ -40,7 +40,6 @@
                         <button
                             class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
                             <div>{{ Auth::user()->name }}</div>
-                           
                             <div class="ms-1">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 20 20">
@@ -51,13 +50,16 @@
                             </div>
                         </button>
                     </x-slot>
-
                     <x-slot name="content">
                         <x-dropdown-link :href="route('profile.edit')">
                             {{ __('Profile') }}
+                        </x-dropdown-link>
+                        <!-- Authentication -->
+                        <x-dropdown-link >
+                            {{ __(' Votre Role') }}
                             @if (Auth::user()->roles->isNotEmpty())
-                            <div class="font-medium text-sm text-gray-500">Role:
-                                {{ Auth::user()->roles->first()->name }} nununu</div>
+                            <div class="font-medium text-sm text-gray-500">
+                                {{ Auth::user()->roles->first()->name }}</div>
                             @endif
                         </x-dropdown-link>
                         <!-- Authentication -->

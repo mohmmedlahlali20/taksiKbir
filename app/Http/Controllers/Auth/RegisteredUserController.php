@@ -48,15 +48,6 @@ public function store(Request $request): RedirectResponse
     if ($request->has('role_driver')) {
         
         $user->assignRole('chauffeur');
-
-       
-        $driver = new drivers();
-        $driver->user_id = $user->id; 
-        $driver->plate_number = '02154'; 
-        $driver->status = 'disponible'; 
-        $driver->vehicle_type = 'toyota'; 
-        $driver->payment_method = 'mimi'; 
-        $driver->save();
     }
 
     event(new Registered($user));

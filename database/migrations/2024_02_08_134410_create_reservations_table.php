@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('driver_id');
             $table->boolean('cancelled')->default(0);
             $table->timestamps();
-        
+            $table->softDeletes();
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('horaire_id')->references('id')->on('horaires');
             $table->foreign('driver_id')->references('id')->on('drivers');

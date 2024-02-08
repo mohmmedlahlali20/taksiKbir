@@ -18,6 +18,7 @@ return new class extends Migration
             $table->enum('status', ['disponible', 'non disponible'])->default('disponible');            $table->string('profile_image')->nullable();
             $table->string('vehicle_type');
             $table->string('payment_method');
+            $table->softDeletes();
             $table->timestamps();
         
             $table->foreign('user_id')->references('id')->on('users');
