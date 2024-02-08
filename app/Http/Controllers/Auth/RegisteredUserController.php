@@ -46,7 +46,6 @@ public function store(Request $request): RedirectResponse
         'password' => Hash::make($request->password),
     ]);
     if ($request->has('role_driver')) {
-        
         $user->assignRole('chauffeur');
     }
 

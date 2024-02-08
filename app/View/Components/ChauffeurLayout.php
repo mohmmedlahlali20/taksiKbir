@@ -12,6 +12,6 @@ class ChauffeurLayout extends Component
      */
     public function render(): View
     {
-        return view('layouts.chauffer');
+        return view('layouts.chauffeur');
     }
 }

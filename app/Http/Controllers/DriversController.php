@@ -13,8 +13,9 @@ class DriversController extends Controller
      */
     public function index()
     {
-        // $Driver = drivers::all();
-        // return view('admin.index', compact('Driver'));
+        $Drivers = drivers::orderBy('created_at', 'ASC')->paginate(10); 
+        return view('chauffeur.Drivers', compact('Drivers'));
+
     }
 
     /**

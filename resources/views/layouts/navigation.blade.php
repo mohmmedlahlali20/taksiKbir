@@ -26,11 +26,12 @@
                 @endrole
                 @if (Auth::check() && Auth::user()->hasRole('chauffeur'))
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.index')">
+                        <x-nav-link :href="route('chauffeur.chauffeur.index')" :active="request()->routeIs('chauffeur.chauffeur.index')">
                             {{ __('chayfor') }}
                         </x-nav-link>
                     </div>
                 @endif
+
             </div>
 
             <!-- Settings Dropdown -->
@@ -55,11 +56,11 @@
                             {{ __('Profile') }}
                         </x-dropdown-link>
                         <!-- Authentication -->
-                        <x-dropdown-link >
+                        <x-dropdown-link>
                             {{ __(' Votre Role') }}
                             @if (Auth::user()->roles->isNotEmpty())
-                            <div class="font-medium text-sm text-gray-500">
-                                {{ Auth::user()->roles->first()->name }}</div>
+                                <div class="font-medium text-sm text-gray-500">
+                                    {{ Auth::user()->roles->first()->name }}</div>
                             @endif
                         </x-dropdown-link>
                         <!-- Authentication -->
