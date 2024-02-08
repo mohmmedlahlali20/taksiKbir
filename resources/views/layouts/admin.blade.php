@@ -73,6 +73,14 @@
                                                             this.closest('form').submit();">
                                     {{ __('Log Out') }}
                                 </x-dropdown-link>
+                                <x-dropdown-link>
+                                    @if (Auth::user()->roles->isNotEmpty()) 
+                                        <div class="font-medium text-sm text-gray-500">
+                                            {{ Auth::user()->roles->first()->name }}
+                                        </div>
+                                    @endif
+                                </x-dropdown-link>
+                                
                             </form>
                         </div>
                     </div>
