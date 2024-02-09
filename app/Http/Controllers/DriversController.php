@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DriversRequest;
 use App\Models\drivers;
 use Illuminate\Http\Request;
 
@@ -12,8 +13,8 @@ class DriversController extends Controller
      */
     public function index()
     {
-        $drivers = drivers::orderBy('created_at', 'ASC')->paginate(10); 
-        return view('chauffeur.Drivers' , compact('drivers'));
+        // $drivers = drivers::orderBy('created_at', 'ASC')->paginate(10); 
+        // return view('chauffeur.Drivers' , compact('drivers'));
     }
 
     /**
@@ -21,16 +22,25 @@ class DriversController extends Controller
      */
     public function create()
     {
-        //
+        return view('chauffeur.Drivers' );
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(DriversRequest $request)
     {
-        //
-    }
+        $validatedData = $request->validated();
+        dd($validatedData);
+         $chauffeur = new drivers();
+        $chauffeur->name = $validatedData['name'];
+        $chauffeur->plat = $validatedData['plat'];
+        $chauffeur->start_city = $validatedData['start_city'];
+        $chauffeur->end_city = $validatedData['end_city'];
+        $chauffeur->save();
+        return view('');
+
+}
 
     /**
      * Display the specified resource.
