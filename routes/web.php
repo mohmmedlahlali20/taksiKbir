@@ -33,7 +33,7 @@ Route::middleware(['auth', 'role:admin'])->name('admin.')->prefix('admin')->grou
 
 
 Route::middleware(['auth', 'role:chauffeur'])->name('chauffeur.')->prefix('chauffeur')->group(function(){
-    Route::resource('/chauffeur', DriversController::class);
+    Route::resource('/', DriversController::class);
 });
 
 
