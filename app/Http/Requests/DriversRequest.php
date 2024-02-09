@@ -23,12 +23,11 @@ class DriversRequest extends FormRequest
     {
         return [
             
-            'plat' => 'required|numeric',
-            'start_city' => 'required',
-            'end_city' => 'required',
-            'status' => 'required',
-            'payment'=> 'required',
-            'description'=> 'required',
+            'description' => 'required|string',
+            'plate_number' => 'required|string',
+            'status' => 'required|string',
+            'vehicle_type' => 'required|string',
+            'payment_method' => 'required|string'
         ];
     }
 }

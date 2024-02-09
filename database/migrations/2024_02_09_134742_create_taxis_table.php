@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('taxis', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('driver_id');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->string('plate_number');
             $table->string('vehicle_type');
             $table->enum('status', ['Available', 'En route', 'Not available'])->default('Not available');

@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class taxis extends Model
 {
     use HasFactory;
+
+    protected $table = 'taxis';
+    protected $fillable = ['driver_id', 'plate_number', 'status', 'vehicle_type', 'payment_method'];
+
+    public function driver()
+{
+    return $this->belongsTo(drivers::class, 'driver_id'); 
+}
 }

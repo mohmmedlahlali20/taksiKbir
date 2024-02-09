@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use SebastianBergmann\CodeCoverage\Driver\Driver;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-
+use Illuminate\Database\Eloquent\Relations\HasOne;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable , HasRoles , SoftDeletes;
@@ -47,5 +47,8 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-  
+    // public function driver(): HasOne
+    // {
+    //     return $this->hasOne(drivers::class);
+    // }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\DriversRequest;
 use App\Models\drivers;
+use App\Models\taxis;
 use Illuminate\Http\Request;
 
 class DriversController extends Controller
@@ -13,8 +14,8 @@ class DriversController extends Controller
      */
     public function index()
     {
-        
-         return view('chauffeur.Drivers');
+        $driver = drivers::find(auth()->id());
+         return view('chauffeur.Drivers' , compact('driver'));
     }
 
     /**
@@ -22,7 +23,7 @@ class DriversController extends Controller
      */
     public function create()
     {
-        return view('chauffeur.Drivers' );
+        // return view('chauffeur.Drivers' );
     }
 
     /**
@@ -31,13 +32,9 @@ class DriversController extends Controller
     public function store(DriversRequest $request)
     {
         
-        $validatedData = $request->validated();
-        $chauffeur =  new Drivers($validatedData);
-        // dd($chauffeur);
-        $chauffeur->save();
-        return redirect()->route('chauffeur.Drivers')->with('success', 'Chauffeur créé avec succès.');
+
+   
     }
-    
 
     /**
      * Display the specified resource.
