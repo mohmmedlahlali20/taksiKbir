@@ -6,6 +6,7 @@ use App\Http\Controllers\admin\RoleController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\DriversController;
+use App\Http\Controllers\HoraireController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -34,6 +35,8 @@ Route::middleware(['auth', 'role:admin'])->name('admin.')->prefix('admin')->grou
 
 Route::middleware(['auth', 'role:chauffeur'])->name('chauffeur.')->prefix('chauffeur')->group(function(){
     Route::resource('/', DriversController::class);
+    Route::get('/horaires/create', [HoraireController::class, 'create'])->name('horaires.create'); // Appel explicite de la méthode create pour afficher le formulaire
+    Route::resource('/horaires' , HoraireController::class); // Préfixe spécifique pour les horaires
 });
 
 

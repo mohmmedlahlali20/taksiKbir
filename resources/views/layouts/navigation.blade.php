@@ -24,14 +24,13 @@
                         </x-nav-link>
                     </div>
                 @endrole
-                @if (Auth::check() && Auth::user()->hasRole('chauffeur'))
-                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('chauffeur.index')" :active="request()->routeIs('chauffeur.index')">
-                            {{ __('chayfor') }}
-                        </x-nav-link>
-                    </div>
-                @endif
-
+                @role('chauffeur')
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('chauffeur.index')" :active="request()->routeIs('chauffeur.index')">
+                        {{ __('chayfor') }}
+                    </x-nav-link>
+                </div>
+                @endrole
             </div>
 
             <!-- Settings Dropdown -->

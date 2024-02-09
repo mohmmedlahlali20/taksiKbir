@@ -20,8 +20,11 @@ class HoraireController extends Controller
      */
     public function create()
     {
-        //
+        dd(horaire::all());
+        $cities = horaire::select('start_city')->distinct()->pluck('start_city');
+        return view('chauffeur.Drivers', compact('cities'));
     }
+
 
     /**
      * Store a newly created resource in storage.

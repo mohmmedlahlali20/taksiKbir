@@ -42,13 +42,11 @@
                     @empty
                         <tr>
                             <td>
-                               <h6>no users</h6>
+                                <h6>no users</h6>
                             </td>
                         </tr>
                         {{ $users->links() }}
                     @endforelse
-                    
-                   
                 </tbody>
             </table>
         </div>
