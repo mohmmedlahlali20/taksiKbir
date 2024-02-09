@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\horaire;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\routes;
 
 class Cities extends Seeder
 {
@@ -22,7 +23,7 @@ class Cities extends Seeder
         ];
 
         foreach ($cities as $city) {
-            Horaire::create([
+            routes::create([
                 'start_city' => $city,
                 'end_city' => $city,
             ]);

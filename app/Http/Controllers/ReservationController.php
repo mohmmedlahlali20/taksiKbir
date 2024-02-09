@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\horaire;
+use App\Models\reservation;
 use Illuminate\Http\Request;
 
-class HoraireController extends Controller
+class ReservationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,11 +20,8 @@ class HoraireController extends Controller
      */
     public function create()
     {
-        dd(horaire::all());
-        $cities = horaire::select('start_city')->distinct()->pluck('start_city');
-        return view('chauffeur.Drivers', compact('cities'));
+        //
     }
-
 
     /**
      * Store a newly created resource in storage.
@@ -37,7 +34,7 @@ class HoraireController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(horaire $horaire)
+    public function show(reservation $reservation)
     {
         //
     }
@@ -45,7 +42,7 @@ class HoraireController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(horaire $horaire)
+    public function edit(reservation $reservation)
     {
         //
     }
@@ -53,7 +50,7 @@ class HoraireController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, horaire $horaire)
+    public function update(Request $request, reservation $reservation)
     {
         //
     }
@@ -61,7 +58,7 @@ class HoraireController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(horaire $horaire)
+    public function destroy(reservation $reservation)
     {
         //
     }

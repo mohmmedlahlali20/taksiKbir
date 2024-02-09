@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\trips_of_horaire;
+use App\Models\routes;
 use Illuminate\Http\Request;
 
-class TripsOfHoraireController extends Controller
+class RoutesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -34,7 +34,7 @@ class TripsOfHoraireController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(trips_of_horaire $trips_of_horaire)
+    public function show(routes $routes)
     {
         //
     }
@@ -42,7 +42,7 @@ class TripsOfHoraireController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(trips_of_horaire $trips_of_horaire)
+    public function edit(routes $routes)
     {
         //
     }
@@ -50,7 +50,7 @@ class TripsOfHoraireController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, trips_of_horaire $trips_of_horaire)
+    public function update(Request $request, routes $routes)
     {
         //
     }
@@ -58,7 +58,7 @@ class TripsOfHoraireController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(trips_of_horaire $trips_of_horaire)
+    public function destroy(routes $routes)
     {
         //
     }

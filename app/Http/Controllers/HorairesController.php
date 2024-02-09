@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\drivers;
+use App\Models\horaires;
 use Illuminate\Http\Request;
 
-class DriversController extends Controller
+class HorairesController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $drivers = drivers::orderBy('created_at', 'ASC')->paginate(10); 
-        return view('chauffeur.Drivers' , compact('drivers'));
+        //
     }
 
     /**
@@ -35,7 +34,7 @@ class DriversController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(drivers $drivers)
+    public function show(horaires $horaires)
     {
         //
     }
@@ -43,7 +42,7 @@ class DriversController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(drivers $drivers)
+    public function edit(horaires $horaires)
     {
         //
     }
@@ -51,7 +50,7 @@ class DriversController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, drivers $drivers)
+    public function update(Request $request, horaires $horaires)
     {
         //
     }
@@ -59,7 +58,7 @@ class DriversController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(drivers $drivers)
+    public function destroy(horaires $horaires)
     {
         //
     }
