@@ -11,16 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('reviews', function (Blueprint $table) {
+        Schema::create('reservations', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('reservation_id');
-     
-            $table->integer('rating');
-            $table->text('comment')->nullable();
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('horaire_id');
+            $table->unsignedBigInteger('driver_id');
+            $table->boolean('cancelled')->default(0);
             $table->timestamps();
-        
-            $table->foreign('reservation_id')->references('id')->on('reservations');
-            
         });
     }
 
@@ -29,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('reviews');
+        Schema::dropIfExists('reservations');
     }
 };

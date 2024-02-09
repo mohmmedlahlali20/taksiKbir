@@ -13,8 +13,14 @@ return new class extends Migration
     {
         Schema::create('taxis', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('driver_id');
+            $table->text('description');
             $table->string('plate_number');
             $table->string('vehicle_type');
+            $table->enum('status', ['Available', 'En route', 'Not available'])->default('Not available');
+            $table->string('payment_method');
+            $table->foreign('driver_id')->references('id')->on('drivers')->onDelete('cascade');
+
             $table->timestamps();
         });
     }

@@ -13,10 +13,15 @@ return new class extends Migration
     {
         Schema::create('horaires', function (Blueprint $table) {
             $table->id();
-            $table->string('start_city');
-            $table->string('end_city');
-            $table->date('date');
+            $table->unsignedBigInteger('user_id')->unique();
+
+            $table->unsignedBigInteger('route_id')->default(null);
+        
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('route_id')->references('id')->on('routes');
+            
         });
     }
 

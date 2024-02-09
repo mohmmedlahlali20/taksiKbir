@@ -22,9 +22,9 @@ class DriversRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required',
-            'plat' => 'required|numerique',
-            'start_city' => 'requird',
+            
+            'plat' => 'required|numeric',
+            'start_city' => 'required',
             'end_city' => 'required',
             'status' => 'required',
             'payment'=> 'required',

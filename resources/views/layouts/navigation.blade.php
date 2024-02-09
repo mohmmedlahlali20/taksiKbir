@@ -25,13 +25,13 @@
                     </div>
                 @endrole
                 @role('chauffeur')
-                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                         <x-nav-link :href="route('chauffeur.index')" :active="request()->routeIs('chauffeur.index')">
-                            {{ __('chayfor') }}
+                            {{ __('Liste des chauffeurs') }}
                         </x-nav-link>
                     </div>
                 @endrole
-                
+
 
             </div>
 

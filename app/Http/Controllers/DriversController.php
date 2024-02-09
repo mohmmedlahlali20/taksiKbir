@@ -13,8 +13,8 @@ class DriversController extends Controller
      */
     public function index()
     {
-        // $drivers = drivers::orderBy('created_at', 'ASC')->paginate(10); 
-        // return view('chauffeur.Drivers' , compact('drivers'));
+        
+         return view('chauffeur.Drivers');
     }
 
     /**
@@ -30,17 +30,14 @@ class DriversController extends Controller
      */
     public function store(DriversRequest $request)
     {
+        
         $validatedData = $request->validated();
-        dd($validatedData);
-         $chauffeur = new drivers();
-        $chauffeur->name = $validatedData['name'];
-        $chauffeur->plat = $validatedData['plat'];
-        $chauffeur->start_city = $validatedData['start_city'];
-        $chauffeur->end_city = $validatedData['end_city'];
+        $chauffeur =  new Drivers($validatedData);
+        // dd($chauffeur);
         $chauffeur->save();
-        return view('');
-
-}
+        return redirect()->route('chauffeur.Drivers')->with('success', 'Chauffeur créé avec succès.');
+    }
+    
 
     /**
      * Display the specified resource.
