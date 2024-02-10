@@ -27,7 +27,8 @@ class DriversRequest extends FormRequest
             'plate_number' => 'required|string',
             'status' => 'required|string',
             'vehicle_type' => 'required|string',
-            'payment_method' => 'required|string'
+            'payment_method' => 'required|string',
+            
         ];
     }
 }

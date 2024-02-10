@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class routes extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['user_id', 'description', 'start_city', 'end_city'];
+
+
 }

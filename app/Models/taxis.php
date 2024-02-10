@@ -13,7 +13,6 @@ class taxis extends Model
     protected $fillable = ['driver_id', 'plate_number', 'status', 'vehicle_type', 'payment_method'];
 
     public function driver()
-{
-    return $this->belongsTo(drivers::class, 'driver_id'); 
-}
+    { return $this->belongsTo(drivers::class, 'drivers_id');
+    }
 }

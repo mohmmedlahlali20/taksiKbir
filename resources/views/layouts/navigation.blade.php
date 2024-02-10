@@ -26,7 +26,7 @@
                 @endrole
                 @role('chauffeur')
                     <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('chauffeur.index')" :active="request()->routeIs('chauffeur.index')">
+                        <x-nav-link :href="route('chauffeur.Drivers')" :active="request()->routeIs('chauffeur.Drivers')">
                             {{ __('Liste des chauffeurs') }}
                         </x-nav-link>
                     </div>
@@ -58,7 +58,7 @@
                         </x-dropdown-link>
                         <!-- Authentication -->
                         <x-dropdown-link>
-                            {{ __(' Votre Role') }}
+                            {{ __(' nta db ') }}
                             @if (Auth::user()->roles->isNotEmpty())
                                 <div class="font-medium text-sm text-gray-500">
                                     {{ Auth::user()->roles->first()->name }}</div>

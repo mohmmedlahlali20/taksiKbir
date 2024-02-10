@@ -35,6 +35,10 @@ Route::middleware(['auth', 'role:admin'])->name('admin.')->prefix('admin')->grou
 
 Route::middleware(['auth', 'role:chauffeur'])->name('chauffeur.')->prefix('chauffeur')->group(function(){
     Route::resource('/', DriversController::class);
+    Route::get('/drivers', [DriversController::class, 'index'])->name('Drivers');
+    
+    // Route::get('/create', [DriversController::class, 'create'])->name('create');
+
     //  Route::resource('/horaires' , HorairesController::class); 
 });
 

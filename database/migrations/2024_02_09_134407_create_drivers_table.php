@@ -14,13 +14,9 @@ return new class extends Migration
         Schema::create('drivers', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->unique();
-
-            // $table->unsignedBigInteger('route_id')->default(null)!;
-        
             $table->timestamps();
-
             $table->foreign('user_id')->references('id')->on('users');
-            // $table->foreign('route_id')->references('id')->on('routes');
+             
         });
     }
 

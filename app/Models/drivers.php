@@ -9,12 +9,18 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class drivers extends Model
 {
     use HasFactory;
-    protected $fillable = ['user_id'];
+    protected $fillable = ['user_id' , 'description', 'start_city_id', 'end_city_id'];
+
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function taxi()
-{
-    return $this->hasOne(taxis::class, 'driver_id'); 
-}
+    {
+        return $this->hasOne(taxis::class);
+    }
 
  
 }
