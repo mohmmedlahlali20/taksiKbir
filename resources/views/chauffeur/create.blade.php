@@ -19,14 +19,9 @@
             <h1 class="text-xl font-semibold mb-4">Create Taxi</h1>
             <form action="{{ route('chauffeur.store') }}" method="POST">
                 @csrf
+                {{-- chauffeur.drivers --}}
                 <!-- Description & Plate Number -->
                 <div class="mb-4 flex flex-wrap">
-                    <div class="w-full md:w-1/2 md:pr-2">
-                        <label for="description" class="block text-gray-700 font-bold mb-2">Description</label>
-                        <textarea id="description" name="description" rows="3"
-                            class="form-textarea w-full px-3 py-2 rounded-lg focus:outline-none focus:ring focus:border-blue-300"
-                            placeholder="Enter taxi description..."></textarea>
-                    </div>
                     <div class="w-full md:w-1/2 md:pl-2">
                         <label for="plate_number" class="block text-gray-700 font-bold mb-2">Plate Number</label>
                         <input id="plate_number" name="plate_number" type="text"
@@ -54,26 +49,17 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="start_city">Ville de départ :</label>
-                    <select class="form-control" id="start_city" name="start_city">
-                        <option value="">Sélectionnez une ville de départ</option>
-                        @foreach($cities as $city)
-                            <option value="{{ $city }}">{{ $city->start_city }}</option>
+                    <label for="Route">Sélectionnez votre route</label>
+                    <select class="form-control" id="Route" name="Route">
+                        <option value="">Sélectionnez une route</option>
+                        
+                        @foreach($routes as $route)
+                            <option value="{{ $route->id }}">{{ $route->Routs }}</option>
                         @endforeach
                     </select>
                 </div>
                 
-                <div class="form-group">
-                    <label for="end_city">Ville d'arrivée :</label>
-                    <select class="form-control" id="end_city" name="end_city">
-                        <option value="">Sélectionnez une ville d'arrivée</option>
-                        @foreach($cities as $city)
-                            <option value="{{ $city }}">{{ $city->end_city }}</option>
-                        @endforeach
-                    </select>
-                </div>
-            
-
+                
                 <!-- Payment Method -->
                 <div class="mb-4">
                     <label for="payment_method" class="block text-gray-700 font-bold mb-2">Payment Method</label>

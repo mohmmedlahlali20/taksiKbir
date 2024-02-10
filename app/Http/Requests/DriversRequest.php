@@ -22,12 +22,12 @@ class DriversRequest extends FormRequest
     public function rules(): array
     {
         return [
-            
-            'description' => 'required|string',
+
             'plate_number' => 'required|string',
             'status' => 'required|string',
             'vehicle_type' => 'required|string',
             'payment_method' => 'required|string',
+            'Route' => 'required',
             
         ];
     }

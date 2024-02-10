@@ -18,11 +18,12 @@ class DriversController extends Controller
      */
     public function index()
     {
+        // return view("chauffeur.Drivers");
         $driver = drivers::where('user_id', auth()->id())->first();
         $user = auth()->user();
         $taxi = $driver ? $driver->taxi : null;
-        
-        return view('chauffeur.Drivers', compact('driver', 'user', 'taxi' ));
+        $cities = $driver ? $driver->routes : null;
+        return view('chauffeur.Drivers', compact('driver', 'user', 'taxi' , 'cities'));
     }
 
 
@@ -33,8 +34,8 @@ class DriversController extends Controller
      */
     public function create()
     {
-        $cities = routes::all();
-        return view('chauffeur.create' , compact('cities'));
+        $routes = routes::all();
+        return view('chauffeur.create' , compact('routes'));
     }
 
     /**
@@ -50,33 +51,37 @@ class DriversController extends Controller
         $driver = drivers::where('user_id', $user_id)->first();
 
         if ($driver) {
-            $driver->update([
-                'description' => $validatedData['description'],
-
-            ]);
+            $driver->update([]);
         } else {
             $driver = drivers::create([
-                
-                'route_id' => $request->route_id,
-                'description' => $validatedData['description'],
-                'start_city' => $validatedData['start_city'],
-                'end_city' => $validatedData['end_city'],
+                'user_id' => $user_id,
+                'route_id' => $validatedData['Route'],
             ]);
         }
 
-        $driver->taxi()->updateOrCreate(
-            ['drivers_id' => $driver->id],
-            [
-                'plate_number' => $validatedData['plate_number'],
-                'vehicle_type' => $validatedData['vehicle_type'],
-                'status' => $validatedData['status'],
-                'payment_method' => $validatedData['payment_method'],
-            ]
-        );
+        if ($driver) {
+            // Stocker l'image dans le système de fichiers
+            if($request->hasFile('image')){
+                $imagePath = $request->file('image')->store('drivers' ,  'public');
+            }
+            $driver->taxi()->updateOrCreate(
+                ['drivers_id' => $driver->id],
+                [
+                    'plate_number' => $validatedData['plate_number'],
+                    'vehicle_type' => $validatedData['vehicle_type'],
+                    'status' => $validatedData['status'],
+                    'payment_method' => $validatedData['payment_method'],
+                    'image' => $imagePath, 
+                ]
+            );
+        }
 
         // Rediriger avec un message de succès
-        return redirect()->route('chauffeur.create')->with('success', 'Profil du conducteur créé avec succès!');
+        return redirect()->route('chauffeur.Drivers')->with('success', 'Profil du conducteur créé avec succès!');
     }
+
+
+
 
 
 

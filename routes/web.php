@@ -7,6 +7,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\DriversController;
 use App\Http\Controllers\HorairesController;
+use App\Http\Controllers\RoutesController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,15 +36,14 @@ Route::middleware(['auth', 'role:admin'])->name('admin.')->prefix('admin')->grou
 
 Route::middleware(['auth', 'role:chauffeur'])->name('chauffeur.')->prefix('chauffeur')->group(function(){
     Route::resource('/', DriversController::class);
-    Route::get('/drivers', [DriversController::class, 'index'])->name('Drivers');
-    
-    // Route::get('/create', [DriversController::class, 'create'])->name('create');
-
-    //  Route::resource('/horaires' , HorairesController::class); 
+    Route::get('/drivers', [DriversController::class, 'index'])->name('drivers');
+    Route::get('/create', [DriversController::class, 'create'])->name('create');
 });
 
 
 
+
+    //  Route::resource('/horaires' , HorairesController::class); 
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

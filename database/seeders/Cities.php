@@ -16,18 +16,6 @@ class Cities extends Seeder
     {
        
 
-        $cities = [
-            'Agadir', 'Al Hoceima', 'Beni Mellal', 'Casablanca', 'Dakhla', 'El Jadida', 'Essaouira',
-            'Fès', 'Kénitra', 'Khouribga', 'Laâyoune', 'Larache', 'Meknès', 'Mohammedia', 'Nador',
-            'Ouarzazate', 'Oujda', 'Rabat', 'Safi', 'Salé', 'Tanger', 'Tétouan'
-        ];
-
-        foreach ($cities as $city) {
-            routes::create([
-                'start_city' => $city,
-                'end_city' => $city,
-            ]);
-        }
 
         }
     }

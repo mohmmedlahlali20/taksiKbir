@@ -9,7 +9,7 @@ class routes extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'description', 'start_city', 'end_city'];
+    protected $fillable = ['user_id', 'Routs'];
 
-
+    protected $table = 'routes';
 }

@@ -11,13 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('drivers', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('user_id')->unique();
-            $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users');
-            
-             
+        Schema::table('taxis', function (Blueprint $table) {
+            $table->string('image')->nullable()->default('default.jpg')->after('status');
+
         });
     }
 
@@ -26,6 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('drivers');
+        Schema::table('taxis', function (Blueprint $table) {
+            //
+        });
     }
 };

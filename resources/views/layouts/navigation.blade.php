@@ -25,12 +25,13 @@
                     </div>
                 @endrole
                 @role('chauffeur')
-                    <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                        <x-nav-link :href="route('chauffeur.Drivers')" :active="request()->routeIs('chauffeur.Drivers')">
-                            {{ __('Liste des chauffeurs') }}
-                        </x-nav-link>
-                    </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                    <x-nav-link :href="route('chauffeur.drivers')" :active="request()->routeIs('chauffeur.Drivers')">
+                        {{ __('Liste des chauffeurs') }}
+                    </x-nav-link>
+                </div>
                 @endrole
+                
 
 
             </div>
@@ -53,9 +54,7 @@
                         </button>
                     </x-slot>
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('profile.edit')">
-                            {{ __('Profile') }}
-                        </x-dropdown-link>
+                        
                         <!-- Authentication -->
                         <x-dropdown-link>
                             {{ __(' nta db ') }}
@@ -111,14 +110,13 @@
             </div>
 
             <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('profile.edit')">
+                {{-- <x-responsive-nav-link :href="route('profile.edit')">
                     {{ __('Profile') }}
-                </x-responsive-nav-link>
+                </x-responsive-nav-link> --}}
 
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
-
                     <x-responsive-nav-link :href="route('logout')"
                         onclick="event.preventDefault();
                                         this.closest('form').submit();">

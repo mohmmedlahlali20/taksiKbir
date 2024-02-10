@@ -13,8 +13,8 @@ class RoutesController extends Controller
     public function index()
     {
         $routes = routes::all();
-        
-        return view('chauffeur.create' , compact('routes'));
+    //  dd($routes);
+        return view('chauffeur.create', compact('routes'));
     }
 
     /**

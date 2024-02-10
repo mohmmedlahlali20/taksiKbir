@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::create('routes', function (Blueprint $table) {
             $table->id();
-            $table->string('start_city');
-            $table->string('end_city');
+            $table->string('Routs');
             $table->timestamps();
         });
     }
