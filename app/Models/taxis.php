@@ -10,7 +10,13 @@ class taxis extends Model
     use HasFactory;
 
     protected $table = 'taxis';
-    protected $fillable = ['driver_id', 'plate_number', 'status', 'vehicle_type', 'payment_method'];
+    protected $fillable = [
+        'driver_id',
+         'plate_number',
+          'status', 
+          'vehicle_type', 
+          'payment_method' ,
+           'image'];
 
     public function driver()
     { return $this->belongsTo(drivers::class, 'drivers_id');

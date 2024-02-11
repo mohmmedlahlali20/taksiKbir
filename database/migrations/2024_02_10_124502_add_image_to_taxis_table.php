@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('taxis', function (Blueprint $table) {
-            $table->string('image')->nullable()->default('default.jpg')->after('status');
+            $table->string('image')->nullable()->after('status');
 
         });
     }

@@ -12,13 +12,18 @@
                 <h2 class="text-lg font-semibold mb-4">Driver Details</h2>
                 <div class="mb-4">
                     <p><strong>Plate Number:</strong> {{ $taxi ? $taxi->plate_number : 'N/A' }}</p>
-                    {{-- {{dd($taxi->plate_number)}} --}}
-                    <p><strong>Status:</strong> {{ $driver ? $driver->status : 'indisponibl' }}</p>
-                    <p><strong>la route :</strong> {{ $cities->Route }}</p>
+                    {{-- {{ dd($statuses->Routs) }} --}}
+
+                    <p><strong>Status:</strong> {{ $taxi ?$taxi->status : 'no status' }}</p>
+                    <p><strong>La route :</strong> {{ $driver ? ($driver->route ? $driver->route->Routs : 'Non définie') : 'Non définie' }}</p>
                     <p><strong>Vehicle Type:</strong> {{ $taxi ? $taxi->vehicle_type : 'N/A' }}</p>
                     <p><strong>Payment Method:</strong> {{ $taxi ? $taxi->payment_method : 'N/A' }}</p>
+                    <p><strong>image:</strong> <img width="100px" src="{{ asset('storage/' . $taxi->payment_method) }}" alt="Image Recette"></p>
                 </div>
             @else
+            Full texts
+            id
+            Routs
                 <p>No driver profile found.</p>
             @endif
         </div>

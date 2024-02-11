@@ -38,6 +38,7 @@ Route::middleware(['auth', 'role:chauffeur'])->name('chauffeur.')->prefix('chauf
     Route::resource('/', DriversController::class);
     Route::get('/drivers', [DriversController::class, 'index'])->name('drivers');
     Route::get('/create', [DriversController::class, 'create'])->name('create');
+    // Route::resource('/create', RoutesController::class);
 });
 
 

@@ -21,8 +21,10 @@ class DriversController extends Controller
         // return view("chauffeur.Drivers");
         $driver = drivers::where('user_id', auth()->id())->first();
         $user = auth()->user();
+        $cities = $driver ? $driver->cities : null;
         $taxi = $driver ? $driver->taxi : null;
-        $cities = $driver ? $driver->routes : null;
+        
+        
         return view('chauffeur.Drivers', compact('driver', 'user', 'taxi' , 'cities'));
     }
 
@@ -34,8 +36,11 @@ class DriversController extends Controller
      */
     public function create()
     {
-        $routes = routes::all();
-        return view('chauffeur.create' , compact('routes'));
+        $cities = routes::all();
+        // dd($cities );
+        $statuses = taxis::pluck('status')->unique(); 
+        // dd( $statuses);
+        return view('chauffeur.create', compact('cities' , 'statuses'));
     }
 
     /**
@@ -45,9 +50,7 @@ class DriversController extends Controller
     public function store(DriversRequest $request)
     {
         $validatedData = $request->validated();
-
         $user_id = auth()->id();
-
         $driver = drivers::where('user_id', $user_id)->first();
 
         if ($driver) {
@@ -60,25 +63,28 @@ class DriversController extends Controller
         }
 
         if ($driver) {
+            $imagePath = null; // Défaut à null si aucune image n'est téléchargée
             // Stocker l'image dans le système de fichiers
-            if($request->hasFile('image')){
-                $imagePath = $request->file('image')->store('drivers' ,  'public');
+            if ($request->hasFile('image')) {
+                $imagePath = $request->file('image')->store('drivers', 'public');
             }
+
             $driver->taxi()->updateOrCreate(
                 ['drivers_id' => $driver->id],
                 [
                     'plate_number' => $validatedData['plate_number'],
                     'vehicle_type' => $validatedData['vehicle_type'],
-                    'status' => $validatedData['status'],
+                    'status' => $validatedData['status'], 
                     'payment_method' => $validatedData['payment_method'],
-                    'image' => $imagePath, 
+                    'image' => $imagePath,
                 ]
             );
         }
 
         // Rediriger avec un message de succès
-        return redirect()->route('chauffeur.Drivers')->with('success', 'Profil du conducteur créé avec succès!');
+        return redirect()->route('chauffeur.drivers')->with('success', 'Profil du conducteur créé avec succès!');
     }
+
 
 
 

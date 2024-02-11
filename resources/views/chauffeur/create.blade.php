@@ -51,19 +51,27 @@
                 <div class="form-group">
                     <label for="Route">Sélectionnez votre route</label>
                     <select class="form-control" id="Route" name="Route">
-                        <option value="">Sélectionnez une route</option>
-                        
-                        @foreach($routes as $route)
-                            <option value="{{ $route->id }}">{{ $route->Routs }}</option>
-                        @endforeach
+                        @if ($cities->count() > 0)
+                            @foreach ($cities as $route)
+                                <option value="{{ $route->id }}">{{ $route->Routs }}</option>
+                            @endforeach
+                        @else
+                            <option value="">Aucune route disponible</option>
+                        @endif
                     </select>
                 </div>
-                
-                
+
+
                 <!-- Payment Method -->
                 <div class="mb-4">
                     <label for="payment_method" class="block text-gray-700 font-bold mb-2">Payment Method</label>
                     <input id="payment_method" name="payment_method" type="text"
+                        class="form-input w-full px-3 py-2 rounded-lg focus:outline-none focus:ring focus:border-blue-300"
+                        placeholder="Enter payment method...">
+                </div>
+                <div class="mb-4">
+                    <label for="payment_method" class="block text-gray-700 font-bold mb-2">Taxi</label>
+                    <input id="payment_method" name="image" type="file"
                         class="form-input w-full px-3 py-2 rounded-lg focus:outline-none focus:ring focus:border-blue-300"
                         placeholder="Enter payment method...">
                 </div>
