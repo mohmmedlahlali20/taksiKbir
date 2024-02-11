@@ -18,7 +18,7 @@
                     <p><strong>La route :</strong> {{ $driver ? ($driver->route ? $driver->route->Routs : 'Non définie') : 'Non définie' }}</p>
                     <p><strong>Vehicle Type:</strong> {{ $taxi ? $taxi->vehicle_type : 'N/A' }}</p>
                     <p><strong>Payment Method:</strong> {{ $taxi ? $taxi->payment_method : 'N/A' }}</p>
-                    <p><strong>image:</strong> <img width="100px" src="{{ asset('storage/' . $taxi->payment_method) }}" alt="Image Recette"></p>
+                    <p><strong>image:</strong> <img width="100px" src="{{ asset('storage/' . $taxi->image) }}" alt="Image Profile"></p>
                 </div>
             @else
             Full texts

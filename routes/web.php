@@ -7,6 +7,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\DriversController;
 use App\Http\Controllers\HorairesController;
+use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\RoutesController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,9 +22,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -38,18 +39,19 @@ Route::middleware(['auth', 'role:chauffeur'])->name('chauffeur.')->prefix('chauf
     Route::resource('/', DriversController::class);
     Route::get('/drivers', [DriversController::class, 'index'])->name('drivers');
     Route::get('/create', [DriversController::class, 'create'])->name('create');
-    // Route::resource('/create', RoutesController::class);
+    Route::get('/reservation' , [ReservationController::class , 'index'])->name('reservation');
 });
+
 
 
 
 
     //  Route::resource('/horaires' , HorairesController::class); 
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+// Route::middleware('auth')->group(function () {
+//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+// });
 
 require __DIR__.'/auth.php';
