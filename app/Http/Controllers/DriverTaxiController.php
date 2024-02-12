@@ -77,7 +77,7 @@ class DriverTaxiController extends Controller
      */
     public function show(driver_taxi $driver_taxi)
     {
-        //
+        
     }
 
     /**
