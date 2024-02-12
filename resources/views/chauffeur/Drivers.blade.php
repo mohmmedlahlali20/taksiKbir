@@ -21,9 +21,7 @@
                     <p><strong>image:</strong> <img width="100px" src="{{ asset('storage/' . $taxi->image) }}" alt="Image Profile"></p>
                 </div>
             @else
-            Full texts
-            id
-            Routs
+            
                 <p>No driver profile found.</p>
             @endif
         </div>

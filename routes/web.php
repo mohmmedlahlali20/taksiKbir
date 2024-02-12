@@ -1,15 +1,9 @@
 <?php
 
-use App\Http\Controllers\admin\IndexController;
-use App\Http\Controllers\admin\PermissionController;
-use App\Http\Controllers\admin\RoleController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\admin\AdminController;
-use App\Http\Controllers\DriversController;
-use App\Http\Controllers\HorairesController;
-use App\Http\Controllers\ReservationController;
-use App\Http\Controllers\RoutesController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\DriverTaxiController;
+use App\Http\Controllers\horairesController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,36 +16,36 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('welcome');
+});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware(['auth', 'role:admin'])->name('admin.')->prefix('admin')->group(function(){
-    Route::resource('/', AdminController::class);
+Route::middleware(['auth', 'role:Chaufeur'])->group(function () {
+Route::resource('/Chaufeur',DriverTaxiController::class);
+Route::resource('/Horaire',horairesController::class);
 });
+// Route::get('/Chaufeur', function () {
+//     return view('Chaufeur.index');
+// })->middleware(['auth', 'role:Chaufeur'])->name('Chaufeur.index'); 
+
+Route::middleware(['auth', 'role:passager'])->group(function () {
+    Route::resource('/passager',horairesController::class);
+    // Route::resource('/Horaire',horairesController::class);
+    });
+Route::get('/admin', function () {
+    return view('admin.index');
+})->middleware(['auth', 'role:Admin'])->name('admin.index'); 
 
 
-Route::middleware(['auth', 'role:chauffeur'])->name('chauffeur.')->prefix('chauffeur')->group(function(){
-    Route::resource('/', DriversController::class);
-    Route::get('/drivers', [DriversController::class, 'index'])->name('drivers');
-    Route::get('/create', [DriversController::class, 'create'])->name('create');
-    Route::get('/reservation' , [ReservationController::class , 'index'])->name('reservation');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-
-
-
-
-
-    //  Route::resource('/horaires' , HorairesController::class); 
-
-// Route::middleware('auth')->group(function () {
-//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-// });
 
 require __DIR__.'/auth.php';

@@ -38,13 +38,13 @@
 
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
-
         <div class="mt-4">
             <label for="role_driver" class="flex items-center">
                 <input id="role_driver" type="checkbox" class="form-checkbox h-5 w-5 text-indigo-600" name="role_driver">
                 <span class="ml-2 block text-sm text-gray-900">{{ __('I want to register as a driver') }}</span>
             </label>
         </div>
+
 
         <div class="flex items-center justify-end mt-4">
             <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('login') }}">

@@ -10,7 +10,7 @@ use App\Models\taxis;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-
+use Carbon\Carbon;
 class DriversController extends Controller
 {
     /**
@@ -39,7 +39,7 @@ class DriversController extends Controller
         $cities = routes::all();
         // dd($cities );
         $statuses = taxis::pluck('status')->unique(); 
-        // dd( $statuses);
+        //dd( $statuses);
         return view('chauffeur.create', compact('cities' , 'statuses'));
     }
 
@@ -50,21 +50,25 @@ class DriversController extends Controller
     public function store(DriversRequest $request)
     {
         $validatedData = $request->validated();
+        
         $user_id = auth()->id();
         $driver = drivers::where('user_id', $user_id)->first();
-
+        // dd($user_id );
         if ($driver) {
-            $driver->update([]);
+            $driver->update([
+        
+            ]);
         } else {
             $driver = drivers::create([
                 'user_id' => $user_id,
                 'route_id' => $validatedData['Route'],
+                'available_from' => Carbon::parse($validatedData['available_from']),
+                'available_to' => Carbon::parse($validatedData['available_to']),
             ]);
         }
 
         if ($driver) {
-            $imagePath = null; // Défaut à null si aucune image n'est téléchargée
-            // Stocker l'image dans le système de fichiers
+            $imagePath = null; 
             if ($request->hasFile('image')) {
                 $imagePath = $request->file('image')->store('drivers', 'public');
             }
@@ -81,7 +85,6 @@ class DriversController extends Controller
             );
         }
 
-        // Rediriger avec un message de succès
         return redirect()->route('chauffeur.drivers')->with('success', 'Profil du conducteur créé avec succès!');
     }
 

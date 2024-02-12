@@ -2,21 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\reservation;
+use App\Models\route;
 use Illuminate\Http\Request;
-use App\Models\drivers;
-use Carbon\Carbon;
-class ReservationController extends Controller
+
+class RouteController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $driver = drivers::where('user_id', auth()->id())->first();
-        $reservation = reservation::all();
-        //  dd($driver);
-        return view('chauffeur.reservation', compact('driver' , 'reservation'));
+        //
     }
 
     /**
@@ -24,7 +20,7 @@ class ReservationController extends Controller
      */
     public function create()
     {
-        // return view('chauffeur.reservation');
+        //
     }
 
     /**
@@ -32,14 +28,13 @@ class ReservationController extends Controller
      */
     public function store(Request $request)
     {
-        // return view('chauffeur.Drivers');
+        //
     }
-    
-   
+
     /**
      * Display the specified resource.
      */
-    public function show(reservation $reservation)
+    public function show(route $route)
     {
         //
     }
@@ -47,7 +42,7 @@ class ReservationController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(reservation $reservation)
+    public function edit(route $route)
     {
         //
     }
@@ -55,7 +50,7 @@ class ReservationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, reservation $reservation)
+    public function update(Request $request, route $route)
     {
         //
     }
@@ -63,7 +58,7 @@ class ReservationController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(reservation $reservation)
+    public function destroy(route $route)
     {
         //
     }

@@ -2,21 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\reservation;
+use App\Models\horaire_drivern;
 use Illuminate\Http\Request;
-use App\Models\drivers;
-use Carbon\Carbon;
-class ReservationController extends Controller
+
+class driver_taxi_horaireController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $driver = drivers::where('user_id', auth()->id())->first();
-        $reservation = reservation::all();
-        //  dd($driver);
-        return view('chauffeur.reservation', compact('driver' , 'reservation'));
+       
     }
 
     /**
@@ -24,7 +20,7 @@ class ReservationController extends Controller
      */
     public function create()
     {
-        // return view('chauffeur.reservation');
+        //
     }
 
     /**
@@ -32,14 +28,13 @@ class ReservationController extends Controller
      */
     public function store(Request $request)
     {
-        // return view('chauffeur.Drivers');
+        //
     }
-    
-   
+
     /**
      * Display the specified resource.
      */
-    public function show(reservation $reservation)
+    public function show(horaire_drivern $horaire_drivern)
     {
         //
     }
@@ -47,7 +42,7 @@ class ReservationController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(reservation $reservation)
+    public function edit(horaire_drivern $horaire_drivern)
     {
         //
     }
@@ -55,15 +50,16 @@ class ReservationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, reservation $reservation)
-    {
-        //
-    }
+    public function update(Request $request,horaire_drivern $item)
+{
+//    $hhhh= horaire_drivern::find($item);
+    dd($item);
+}
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(reservation $reservation)
+    public function destroy(horaire_drivern $horaire_drivern)
     {
         //
     }

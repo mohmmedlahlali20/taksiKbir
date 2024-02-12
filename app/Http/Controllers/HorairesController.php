@@ -5,14 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\horaires;
 use Illuminate\Http\Request;
 
-class HorairesController extends Controller
+class horairesController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $hors = horaires::where('status', 'disponible')->orderBy('created_at', 'desc')->get();
+       
+       return view('passager.index',compact('hors'));
     }
 
     /**
@@ -34,7 +36,7 @@ class HorairesController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(horaires $horaires)
+    public function show(horaires $horire)
     {
         //
     }
@@ -42,7 +44,7 @@ class HorairesController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(horaires $horaires)
+    public function edit(horaires $horire)
     {
         //
     }
@@ -50,15 +52,20 @@ class HorairesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, horaires $horaires)
-    {
-        //
-    }
+   // horairesController.php
+public function update(Request $request, horaires $Horaire)
+{
+    // Add logic to update the item based on the request data
+    $Horaire->update(['status' => $request->has('status') ? 'Disponible' : 'out of service']);
+
+    return redirect()->back(); 
+}
+
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(horaires $horaires)
+    public function destroy(horaires $horire)
     {
         //
     }

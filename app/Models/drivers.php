@@ -9,7 +9,12 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class drivers extends Model
 {
     use HasFactory;
-    protected $fillable = ['user_id' ,  'route_id'];
+    protected $fillable = [
+        'user_id',
+        'route_id',
+        
+    ];
+    
 
 
     public function user()
