@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DriversRequest;
 use App\Models\route;
 use App\Models\horaires;
 use App\Models\driver_taxi;
@@ -17,69 +18,58 @@ class DriverTaxiController extends Controller
      */
     public function index()
     {
-        $horaires=horaires::where('created_at','>',now())->get();
-      
-        $hor=array();
-        foreach( $horaires as $item){
-          
-            $hor[]=$item;
+        $horaires = horaires::where('created_at', '>', now())->get();
+
+        $hor = array();
+        foreach ($horaires as $item) {
+
+            $hor[] = $item;
         }
 
         $driver = driver_taxi::where('user_id', Auth::id())->first();
-         return view('Chaufeur.index', compact('driver','hor'));
-
-        }
+        return view('Chaufeur.index', compact('driver', 'hor'));
+    }
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        $Routes=route::all();
-        return view('Chaufeur.create',compact('Routes'));
+        $Routes = route::all();
+        return view('Chaufeur.create', compact('Routes'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(DriversRequest $request)
     {
-       $validated=  $request->validate([
-           'user_id'=> 'required',
-           'route'=> 'required',
-           'image'=> 'required',
-            'number_seats' => 'required|integer',
-            'typ_vehicle' => 'required|string',
-            'matricule' => 'required|integer',
-            'price' => 'required|integer',
-            'method_payment' => 'required|in:cart,espase',
-            'description' => 'required|string',
-        ]);
-        if($request->hasFile('image')){
-            $validated['image']=$request->file('image')->store('driveimges','public');
-            
-        }   
-       
-       $driver= driver_taxi::create([
-            'User_id'=>$validated['user_id'],
-            'number_seets'=>$validated['number_seats'],
-            'typ_veicl'=>$validated['typ_vehicle'],
-            'matricule'=>$validated['matricule'],
-            'route'=>$validated['route'],
-            'price'=>$validated['price'],
-            'image'=>$validated['image'],
-            'method_payment'=>$validated['method_payment'],
-            'description'=>$validated['description'],
-        ]);
-       $horires=horaires::all();
-    foreach ($horires as $value) {
-        driver_taxi_horaire::create([
-             'horaire_id'=>$value->id,
-             'driver_taxi_id'=>$driver->id,
-        ]);
-    }
-        return redirect(route('Chaufeur.index'));
+        $validated = $request->validate($request->rules());
+        
+        if ($request->hasFile('image')) {
+            $validated['image'] = $request->file('image')->store('driveimges', 'public');
+        }
 
+        $driver = driver_taxi::create([
+            'User_id' => $validated['user_id'],
+            'number_seets' => $validated['number_seats'],
+            'typ_veicl' => $validated['typ_vehicle'],
+            'matricule' => $validated['matricule'],
+            'route' => $validated['route'],
+            'price' => $validated['price'],
+            'image' => $validated['image'],
+            'method_payment' => $validated['method_payment'],
+            'description' => $validated['description'],
+        ]);
+        $horires = horaires::all();
+        foreach ($horires as $value) {
+            driver_taxi_horaire::create([
+                'horaire_id' => $value->id,
+                'driver_taxi_id' => $driver->id,
+            ]);
+        }
+
+        return redirect()->route('Chaufeur.index')->with('success', 'Profil dyal taxi tzad');
     }
 
     /**
