@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('typ_veicl');
             $table->integer('matricule');
             $table->integer('price');
-            $table->enum('method_payment',['cart','espase']);
+            $table->enum('method_payment',['cart','espace']);
             $table->text('description');
             $table->softDeletes();
             $table->timestamps();

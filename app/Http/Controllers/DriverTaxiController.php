@@ -19,7 +19,7 @@ class DriverTaxiController extends Controller
     public function index()
     {
         $horaires = horaires::where('created_at', '>', now())->get();
-
+        
         $hor = array();
         foreach ($horaires as $item) {
 
@@ -45,10 +45,13 @@ class DriverTaxiController extends Controller
     public function store(DriversRequest $request)
     {
         $validated = $request->validate($request->rules());
-        
+
         if ($request->hasFile('image')) {
             $validated['image'] = $request->file('image')->store('driveimges', 'public');
         }
+
+        $methodPayment = substr($validated['method_payment'], 0, 255); 
+        $validated['method_payment'] = $methodPayment;
 
         $driver = driver_taxi::create([
             'User_id' => $validated['user_id'],

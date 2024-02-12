@@ -28,10 +28,14 @@ class driver_taxi extends Model
     {
         return $this->belongsTo(User::class, 'User_id');
     }
-
+   
     public function horairs()
     {
         return $this->belongsToMany(horaires::class, 'driver_taxi_horaires', 'driver_taxi_id', 'horaire_id');
+    }
+    public function route()
+    {
+        return $this->belongsTo(Route::class, 'route');
     }
     
 }

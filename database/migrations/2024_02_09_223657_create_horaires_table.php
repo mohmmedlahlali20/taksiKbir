@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('horaires', function (Blueprint $table) {
             $table->id();
-            $table->enum('status', ['disponible', 'in trip', 'out of service'])->default('out of service');
+            $table->enum('status', ['disponible', 'au travail', 'hors service'])->default('hors service');
             $table->softDeletes();
             $table->timestamps();
         });

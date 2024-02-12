@@ -37,13 +37,13 @@
                                 <h1>{{ $item->created_at }}</h1>
                             </div>
                             <div>
-                                <form action="{{ route('Horaire.update', $item) }}" method="POST">
+                                <form action="{{ route('accept') }}" method="post">
                                     @csrf
-                                    @method('PATCH')
-                                    <label for="status">Disponible</label>
-                                    <input type="checkbox" id="status" name="status"
-                                        {{ $item->status == 'Disponible' ? 'checked' : '' }}>
+                                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                                        Accepte (disponible)
+                                      </button>
                                 </form>
+                                
                             </div>
                         </div>
                     @endforeach

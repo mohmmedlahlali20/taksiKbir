@@ -1,21 +1,23 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\horaires;
-use App\Models\reservationn;
+use App\Models\driver_taxi;
+use App\Models\admin;
 use Illuminate\Http\Request;
 
-class ReservationnController extends Controller
+class AdminController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        // $reservation = re;
+
+        $drivers = driver_taxi::all();
+        //   dd($drivers);
+        return view('admin.index', compact('drivers'));
     }
 
-    
     /**
      * Show the form for creating a new resource.
      */
@@ -35,7 +37,7 @@ class ReservationnController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(reservationn $reservationn)
+    public function show(admin $admin)
     {
         //
     }
@@ -43,7 +45,7 @@ class ReservationnController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(reservationn $reservationn)
+    public function edit(admin $admin)
     {
         //
     }
@@ -51,7 +53,7 @@ class ReservationnController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, reservationn $reservationn)
+    public function update(Request $request, admin $admin)
     {
         //
     }
@@ -59,7 +61,7 @@ class ReservationnController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(reservationn $reservationn)
+    public function destroy(admin $admin)
     {
         //
     }

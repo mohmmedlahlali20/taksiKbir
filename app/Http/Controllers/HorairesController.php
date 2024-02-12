@@ -17,6 +17,16 @@ class horairesController extends Controller
        return view('passager.index',compact('hors'));
     }
 
+    public function Accepter(Request $request)
+    {
+        $reservationId = $request->input('reservation_id');
+
+        $reservation = horaires::findOrFail($reservationId);
+        $reservation->status = 'disponible';
+        $reservation->save();
+    
+        return redirect()->back()->with('success', 'Reservation accepted successfully.');
+    }
     /**
      * Show the form for creating a new resource.
      */
