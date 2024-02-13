@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\DriversRequest;
 use App\Models\route;
 use App\Models\horaires;
 use App\Models\driver_taxi;
 use Illuminate\Http\Request;
-use App\Models\driver_taxi_horaire;
 use Illuminate\Support\Facades\Auth;
 use App\Providers\RouteServiceProvider;
+use Psy\Command\WhereamiCommand;
 
 class DriverTaxiController extends Controller
 {
@@ -18,61 +17,58 @@ class DriverTaxiController extends Controller
      */
     public function index()
     {
-        $horaires = horaires::where('created_at', '>', now())->get();
-        
-        $hor = array();
-        foreach ($horaires as $item) {
-
-            $hor[] = $item;
+        $driver = driver_taxi::where('user_id', Auth::id())->first();
+        // dd($driver);
+        if ($driver) {
+            $hor = horaires::where('driver_taxi_id', $driver->id)->get();
+            return view('Chaufeur.index', compact('driver', 'hor'));
+        } else {
+            return view('Chaufeur.index',compact('driver')); 
         }
 
-        $driver = driver_taxi::where('user_id', Auth::id())->first();
-        return view('Chaufeur.index', compact('driver', 'hor'));
-    }
+        }
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        $Routes = route::all();
-        return view('Chaufeur.create', compact('Routes'));
+       
+        return view('Chaufeur.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(DriversRequest $request)
+    public function store(Request $request)
     {
-        $validated = $request->validate($request->rules());
-
-        if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('driveimges', 'public');
-        }
-
-        $methodPayment = substr($validated['method_payment'], 0, 255); 
-        $validated['method_payment'] = $methodPayment;
-
-        $driver = driver_taxi::create([
-            'User_id' => $validated['user_id'],
-            'number_seets' => $validated['number_seats'],
-            'typ_veicl' => $validated['typ_vehicle'],
-            'matricule' => $validated['matricule'],
-            'route' => $validated['route'],
-            'price' => $validated['price'],
-            'image' => $validated['image'],
-            'method_payment' => $validated['method_payment'],
-            'description' => $validated['description'],
+       $validated=  $request->validate([
+           'user_id'=> 'required',
+           'image'=> 'required',
+           'number_seats'=> 'required',
+            'number_seats' => 'required|integer',
+            'typ_vehicle' => 'required|string',
+            'matricule' => 'required|integer',
+            'method_payment' => 'required|in:cart,espase',
+            'description' => 'required|string',
         ]);
-        $horires = horaires::all();
-        foreach ($horires as $value) {
-            driver_taxi_horaire::create([
-                'horaire_id' => $value->id,
-                'driver_taxi_id' => $driver->id,
-            ]);
-        }
+        if($request->hasFile('image')){
+            $validated['image']=$request->file('image')->store('driveimges','public');
+            
+        }   
+       $driver = driver_taxi::create([
+            'User_id'=>$validated['user_id'],
+            'number_seets'=>$validated['number_seats'],
+            'typ_veicl'=>$validated['typ_vehicle'],
+            'matricule'=>$validated['matricule'],
+            'image'=>$validated['image'],
+            'method_payment'=>$validated['method_payment'],
+            'description'=>$validated['description'],
+        ]);
+        
+     
+        return redirect()->to_route('Chaufeur.index')->with('succes' , 'tzadt');
 
-        return redirect()->route('Chaufeur.index')->with('success', 'Profil dyal taxi tzad');
     }
 
     /**
@@ -80,7 +76,7 @@ class DriverTaxiController extends Controller
      */
     public function show(driver_taxi $driver_taxi)
     {
-        
+        //
     }
 
     /**

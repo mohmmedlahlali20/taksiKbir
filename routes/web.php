@@ -1,11 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\horairesController;
 use App\Http\Controllers\DriverTaxiController;
-use App\Http\Controllers\ReservationnController;
+use App\Http\Controllers\horairesController;
+use App\Http\Controllers\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,8 +28,6 @@ Route::get('/dashboard', function () {
 Route::middleware(['auth', 'role:Chaufeur'])->group(function () {
 Route::resource('/Chaufeur',DriverTaxiController::class);
 Route::resource('/Horaire',horairesController::class);
-Route::post('/Horaire', [horairesController::class , 'Accepter'])->name('accept');
-
 });
 // Route::get('/Chaufeur', function () {
 //     return view('Chaufeur.index');
@@ -40,13 +37,12 @@ Route::middleware(['auth', 'role:passager'])->group(function () {
     Route::resource('/passager',horairesController::class);
     // Route::resource('/Horaire',horairesController::class);
     });
-// Route::middleware(['auth', 'role:admin'])->group(function () {
-//     Route::('/admin',);
-//     // Route::resource('/Horaire',horairesController::class);
-//     });
+Route::get('/admin', function () {
+    return view('admin.index');
+})->middleware(['auth', 'role:Admin'])->name('admin.index'); 
+
+
 Route::resource('/admin', AdminController::class)->middleware(['auth', 'role:Admin']); 
-
-
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

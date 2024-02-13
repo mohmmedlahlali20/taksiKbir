@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\horaires;
+
 use App\Models\reservationn;
 use Illuminate\Http\Request;
 
@@ -12,10 +12,9 @@ class ReservationnController extends Controller
      */
     public function index()
     {
-        // $reservation = re;
+        //
     }
 
-    
     /**
      * Show the form for creating a new resource.
      */

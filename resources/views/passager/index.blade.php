@@ -6,7 +6,7 @@
                 @foreach($item->drivert as $driver)
                     <div class="flex flex-cols-6 justify-between border-black-3 shadow px-6 py-1 mb-6">
                         <div class="w-full">
-                            <h1 class="text-2xl font-bold">{{Str::limit($driver->description, 10)  }}</h1>
+                            <h1 class="text-2xl font-bold">{{ $driver->description }}</h1>
                             <p>{{ $driver->matricule }}</p>
                             <h4 class="text-lg font-semibold">{{ $driver->number_seets }}</h4>
                         </div>

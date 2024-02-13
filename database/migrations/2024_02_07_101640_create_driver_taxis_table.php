@@ -17,12 +17,11 @@ return new class extends Migration
             $table->id();
             $table->foreignId('User_id')->constrained('users');
             $table->unique('User_id');
-            $table->foreignId('route')->constrained('routes');
+            $table->enum('status', ['disponible', 'en route', 'hors service'])->default('hors service');
             $table->integer('number_seets');
             $table->string('image');
             $table->string('typ_veicl');
             $table->integer('matricule');
-            $table->integer('price');
             $table->enum('method_payment',['cart','espace']);
             $table->text('description');
             $table->softDeletes();
