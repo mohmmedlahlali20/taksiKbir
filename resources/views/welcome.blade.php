@@ -35,58 +35,7 @@
             @endif
         </div>
     </nav>
-    @auth
-        <h2 class="mb-4 font-bold text-center mt-5 text-xl text-gray-600">ALL SERVICE DISPONIBL</h2>
-        <div class="relative flex min-h-screen flex-col justify-center overflow-hidden bg-gray- py-6 sm:py-12">
-            <div class="mx-auto max-w-screen-xl px-4 w-full">
-                <div class="grid w-full sm:grid-cols-2 xl:grid-cols-4 gap-6">
-                    <div
-                        class="relative flex flex-col shadow-md rounded-xl overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300 max-w-sm">
-                        <a href="" class="hover:text-orange-600 absolute z-30 top-2 right-0 mt-2 mr-3">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor" class="w-6 h-6">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
-                            </svg>
-                        </a>
-                        <a href="" class="z-20 absolute h-full w-full top-0 left-0 ">&nbsp;</a>
-                        <div class="h-auto overflow-hidden">
-                            <div class="h-44 overflow-hidden relative">
-                                <img src="https://picsum.photos/400/400" alt="">
-                            </div>
-                        </div>
-                        <div class="bg-white py-4 px-3">
-                            <h3 class="text-xs mb-2 font-medium">Des cadeaux incroyables prêts à être utilisés dans votre
-                                prochain projet</h3>
-                            <div class="flex justify-between items-center">
-                                <p class="text-xs text-gray-400">
-                                    Lorem, ipsum dolor sit amet
-                                </p>
-                                <div class="relative z-40 flex items-center gap-2">
-                                    <a class="text-orange-600 hover:text-blue-500" href="">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
-                                        </svg>
-                                    </a>
-                                    <a class="text-orange-600 hover:text-blue-500" href="">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                            stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
-                                        </svg>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    @endauth
     @guest
-
         <div class="bg-white dark:bg-gray-800 ">
             <div class="lg:flex lg:items-center lg:justify-between w-full mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8 z-20">
                 <h2 class="text-3xl font-extrabold text-black dark:text-white sm:text-4xl">
@@ -97,6 +46,7 @@
                         Plateforme de Réservation de Grands Taxis
                     </span>
                 </h2>
+
                 <div class="lg:mt-0 lg:flex-shrink-0">
                     <div class=" inline-flex rounded-md shadow">
                         @if (Auth::check())
@@ -106,22 +56,31 @@
                                 get started
                             </a>
                         @else
-                            <!-- Si l'utilisateur n'est pas connecté -->
                             <a href="{{ route('login') }}"
                                 class="block py-4 px-6 bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500 focus:ring-offset-indigo-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg">
                                 get started
                             </a>
-
-                            
                         @endif
-
                     </div>
                 </div>
             </div>
         </div>
+        <div class="max-w-md mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-md overflow-hidden md:max-w-2xl">
+            <div class="md:flex">
+              <div class="md:flex-shrink-0">
+                <img class="h-48 w-full object-cover md:h-full md:w-48" src="image-du-chauffeur.jpg" alt="Chauffeur">
+              </div>
+              <div class="p-8">
+                <div class="uppercase tracking-wide text-sm text-indigo-500 font-semibold">Nombre de chauffeurs</div>
+                <div class="block mt-1 text-lg leading-tight font-semibold text-gray-900 dark:text-white">{{ $driversCount }}</div>
+              </div>
+            </div>
+          </div>
+          
 
     @endguest
 
 </body>
+
 
 </html>

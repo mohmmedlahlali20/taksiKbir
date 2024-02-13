@@ -17,9 +17,8 @@ use App\Http\Controllers\AdminController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [DriverTaxiController::class , 'guest']);
+Route::get('/', [DriverTaxiController::class , 'showDriversCount']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');

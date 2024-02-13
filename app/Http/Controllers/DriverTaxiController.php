@@ -78,7 +78,11 @@ class DriverTaxiController extends Controller
     {
         //
     }
-
+    public function showDriversCount()
+    {
+        $driversCount = driver_taxi::count();
+        return view('welcome', compact('driversCount'));
+    }
     /**
      * Show the form for editing the specified resource.
      */
@@ -100,5 +104,10 @@ class DriverTaxiController extends Controller
     public function destroy(driver_taxi $driver_taxi)
     {
         //
+    }
+
+
+    public function guest(){
+        return view('welcome');
     }
 }
