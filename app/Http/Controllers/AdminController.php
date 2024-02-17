@@ -1,9 +1,14 @@
 <?php
 
 namespace App\Http\Controllers;
+
+use App\Models\rate;
+use App\Models\User;
+use App\Models\horaires;
 use App\Models\driver_taxi;
-use App\Models\admin;
+use App\Models\reservationn;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 
 class AdminController extends Controller
 {
@@ -12,10 +17,12 @@ class AdminController extends Controller
      */
     public function index()
     {
-
-        $drivers = driver_taxi::all();
-        //   dd($drivers);
-        return view('admin.index', compact('drivers'));
+       $passagers = User::whereHas('roles', function ($query) {
+             $query->where('name', 'passager');
+        })->get();
+        $drivers = driver_taxi::where('deleted_at',null)->get();
+      
+        return view('admin.index',compact('passagers','drivers'));
     }
 
     /**
@@ -37,7 +44,7 @@ class AdminController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(admin $admin)
+    public function show(string $id)
     {
         //
     }
@@ -45,7 +52,7 @@ class AdminController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(admin $admin)
+    public function edit(string $id)
     {
         //
     }
@@ -53,7 +60,7 @@ class AdminController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, admin $admin)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -61,8 +68,9 @@ class AdminController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(admin $admin)
+    public function destroy(User $admin)
     {
-        //
-    }
+        $admin->delete();
+           return  redirect(route('admin.index'));
+}
 }

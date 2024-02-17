@@ -1,17 +1,13 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open: false }" class="bg-gray-200 ">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
-            <div class="flex">
+        <div class="flex justify-around h-16">
+            <div class="flex justify-between ">
                 <!-- Logo -->
-                <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
-                    </a>
-                </div>
+
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex ">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
@@ -24,10 +20,16 @@
                     <x-nav-link :href="route('Chaufeur.index')" :active="request()->routeIs('Chaufeur.index')">
                         {{ __('Chaufeur') }}
                     </x-nav-link>
+                    <x-nav-link :href="route('rate.index')" :active="request()->routeIs('rate.index')">
+                        {{ __('your rates') }}
+                    </x-nav-link>
                     @endrole
                     @role('passager')
                     <x-nav-link :href="route('passager.index')" :active="request()->routeIs('passager.index')">
                         {{ __('reserver taxi') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('Reservation.index')" :active="request()->routeIs('passager.index')">
+                        {{ __('votre reservations') }}
                     </x-nav-link>
                     @endrole
                 </div>
@@ -71,7 +73,8 @@
                         </form>
                     </x-slot>
                 </x-dropdown>
-            </div>
+
+                
 
             <!-- Hamburger -->
             <div class="-me-2 flex items-center sm:hidden">
@@ -92,6 +95,13 @@
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
         </div>
+        <x-dropdown-link>
+            {{ __(' nta db ') }}
+            @if (Auth::user()->roles->isNotEmpty())
+                <div class="font-medium text-sm text-gray-500">
+                    {{ Auth::user()->roles->first()->name }}</div>
+            @endif
+        </x-dropdown-link>
 
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
@@ -104,13 +114,7 @@
                 <x-responsive-nav-link :href="route('profile.edit')">
                     {{ __('Profile') }}
                 </x-responsive-nav-link>
-                <x-dropdown-link>
-                    {{ __(' nta db ') }}
-                    @if (Auth::user()->roles->isNotEmpty())
-                        <div class="font-medium text-sm text-gray-500">
-                            {{ Auth::user()->roles->first()->name }}</div>
-                    @endif
-                </x-dropdown-link>
+
                 <!-- Authentication -->
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf

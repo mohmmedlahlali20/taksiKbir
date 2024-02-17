@@ -1,71 +1,82 @@
 <x-chaufeur-layout>
-    @if(isset($driver) && !empty($driver))
+    @if(isset($driver_taxi) && !empty($driver_taxi))
         <!-- If $driver is set and not empty -->
         <x-slot name="additionalContent">
             <div class="container my-5">
             <div class="flex justify-around my-6 ">
-                <div class="my-5 mx-4">
-                    <a href="{{ route('Horaire.create') }}" class="inline-block bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
-                        Add Horaire
-                    </a>
-                </div>
-                <div class="text-center mt-4 text-3xl">
-                    <h3>choisire votre route</h3>
-                </div>
-             
-                <div class="mb-4">
-                    <label for="route" class="block text-sm font-medium text-gray-600">votre status</label>
-                    <select name="status" required class="mt-1 p-2 border rounded-md w-50">
-                        <option value="disponible">disponible</option>
-                        <option value="in trip">in trip</option>
-                        <option value="out of service">out of service</option>
-                    </select>
-                </div>
-
+            <div class="my-5 mx-4"><a href="{{ route('Horaire.create') }}" class="btn bg-blue-500 text-white p-2 rounded">add horaire</a></div>
+           <div class="text-center mt-4 text-3xl"><h3>your horaires</h3></div>
+            <div class="mb-4">
+                <form action="{{ route('Chaufeur.update',$driver_taxi) }}" method="POST">
+                    @csrf
+                    @method('PATCH')
+                <label for="route" class="block text-sm font-medium text-gray-600">votre status</label>
+                <select name="status" required class="mt-1 p-2 border rounded-md w-50" onchange="this.form.submit()">
+                    <option value="disponible" {{ ($driver_taxi->status=='disponible')?'selected':''}} >disponible</option>
+                    <option value="in trip" {{ ($driver_taxi->status=='in trip')?'selected':''}}>in trip</option>
+                    <option value="out of service" {{ ($driver_taxi->status=='out of service')?'selected':''}}>out of service</option>
+                </select>
+            </form>
+            </div>
         </div>
     </div>
     <div class="mt-6 container px-6">
-        <table class="border-collapse w-full">
+        <table class="border-collapse border border-black-3 w-full">
             <thead>
                 <tr>
-                   
-                    <th class="border border-black-3 px-6 py-3">Price</th>
-                    <th class="border border-black-3 px-6 py-3">Status</th>
-                    <th class="border border-black-3 px-6 py-3">method payment</th>
-                    <th class="border border-black-3 px-6 py-3">Created At</th>
-                    <th class="border border-black-3 px-6 py-3">Actions</th>
+                    <th class="px-6 py-3 border border-black-3 bg-gray-200">Description</th>
+                    <th class="px-6 py-3 border border-black-3 bg-gray-200">Matricule</th>
+                    <th class="px-6 py-3 border border-black-3 bg-gray-200">Nombre de sièges</th>
+                    <th class="px-6 py-3 border border-black-3 bg-gray-200">Type de véhicule</th>
+                    <th class="px-6 py-3 border border-black-3 bg-gray-200">Prix</th>
+                    <th class="px-6 py-3 border border-black-3 bg-gray-200">Image</th>
+                    <th class="px-6 py-3 border border-black-3 bg-gray-200">Date de création</th>
+                    <th class="px-6 py-3 border border-black-3 bg-gray-200">Réservations</th>
+                    <th class="px-6 py-3 border border-black-3 bg-gray-200">Actions</th>
                 </tr>
             </thead>
             <tbody>
-                @forelse ($hor as $driver)
-                    <tr class="border border-black-3">
-                        
-                        <td class="border border-black-3 px-6 py-4">{{ $driver->price }}</td>
-                        <td class="border border-black-3 px-6 py-4">{{ $driver->status }}</td>
-                        <td class="border border-black-3 px-6 py-4">{{ $driver->method_payment }}</td>
-                        <td class="border border-black-3 px-6 py-4">{{ $driver->created_at }}</td>
-                        <td class="border border-black-3 px-6 py-4">
-                            <form action="">
-                                <button class="btn bg-red-500 p-1 rounded">pus flow</button>
-                            </form>
-                            <br><br>
-                            <form action="">
-                                <button class="btn bg-green-500 p-1 px-1 rounded">run flow</button>
-                            </form>
+                @forelse ($hor as $item)
+                    <tr>
+                        <td class="px-6 py-4 border border-black-3">{{ $driver_taxi->description }}</td>
+                        <td class="px-6 py-4 border border-black-3">{{ $driver_taxi->matricule }}</td>
+                        <td class="px-6 py-4 border border-black-3">{{ $driver_taxi->number_seets }}</td>
+                        <td class="px-6 py-4 border border-black-3">{{ $driver_taxi->typ_veicl }}</td>
+                        <td class="px-6 py-4 border border-black-3">{{ $item->price }}</td>
+                        <td class="px-6 py-4 border border-black-3"><img src="{{ asset('storage/' . $driver_taxi->image) }}" width="100px" alt="Image Alt Text"></td>
+                        <td class="px-6 py-4 border border-black-3">{{ $item->created_at }}</td>
+                        <td class="px-6 py-4 border border-black-3">{{ $item->reservations->count() }}/{{ $driver_taxi->number_seets }}</td>
+                        <td class="px-6 py-4 border border-black-3">
+                            @if ($item->reservations->count() == $driver_taxi->number_seets)
+                                <span class="bg-yellow-700 p-3">this trip is full</span>
+                            @else
+                                @if ($item->disable == false)
+                                    <form action="{{ route('Horaire.update', $item) }}" method="post">
+                                        @csrf
+                                        @method('put')
+                                        <button class="btn bg-red-500 p-1 text-white rounded">hors service</button>
+                                    </form>
+                                @else
+                                    <form action="{{ route('Horaire.update', $item) }}" method="post">
+                                        @csrf
+                                        @method('put')
+                                        <button class="btn bg-green-500 p-1 text-white px-1 rounded">en service</button>
+                                    </form>
+                                @endif
+                            @endif
                         </td>
                     </tr>
                 @empty
-                    <tr class="border border-black-3">
-                        <td colspan="8" class="px-6 py-4 text-xl text-balance text-center">No rout found</td>
+                    <tr>
+                        <td colspan="9" class="px-6 py-4 border text-center text-xl border-black-3">no horair found</td>
                     </tr>
                 @endforelse
             </tbody>
         </table>
     </div>
     
-    
         </x-slot>
-    @else
+        @else
     <x-slot name="additionalContent">
         <div class="flex flex-col items-center justify-center h-screen">
             <div class="fixed inset-0 flex justify-center items-center">

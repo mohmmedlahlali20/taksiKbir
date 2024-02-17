@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
-use App\Models\drivers;
+
 class RegisteredUserController extends Controller
 {
     /**
@@ -28,33 +28,36 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
+    public function store(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'image' => ['required'], // Add image validation rule
+            'role' => ['required', 'in:1,2'], // Validate the single role radio button
+        ]);
 
+        $role = ($request->input('role') == 1) ? 'passager' : 'Chaufeur'; // Determine role based on radio button value
 
-public function store(Request $request): RedirectResponse
-{
-    $request->validate([
-        'name' => ['required', 'string', 'max:255'],
-        'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-        'password' => ['required', 'confirmed', Rules\Password::defaults()],
-        
-    ]);
+        if ($request->hasFile('image')) {
+            $uploadedFile = $request->file('image');
+            $filePath = $uploadedFile->store('userimages', 'public'); // Handle file upload for image field
+        }
 
-    // C:\xampp\laravel\TAXI\app\Http\Controllers\Auth\RegisteredUserController.php
-    $user = User::create([
-        'name' => $request->name,
-        'email' => $request->email,
-        'password' => Hash::make($request->password),
-    ]);
-    if ($request->has('role_driver')) {
-        $user->assignRole('Chaufeur');
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'image' => $filePath, // Assign uploaded file path to the image field
+        ]);
+
+        $user->assignRole($role); // Assign the appropriate role to the user
+
+        event(new Registered($user));
+
+        Auth::login($user);
+
+        return redirect(RouteServiceProvider::HOME);
     }
-
-    event(new Registered($user));
-
-    Auth::login($user);
-
-    return redirect(RouteServiceProvider::HOME);
-}
-
-
 }
