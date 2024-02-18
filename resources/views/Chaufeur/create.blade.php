@@ -3,7 +3,7 @@
         <script src="https://kit.fontawesome.com/c0bae2ffa6.js" crossorigin="anonymous"></script>
 
         
-        <div class="mx-auto max-w-screen-lg mt-4 px-4 py-8 bg-gray-300  mb-6 rounded-lg shadow-md">
+        <div class="mx-auto max-w-screen-lg mt-4 px-4 py-8  mb-6 rounded-lg shadow-md">
             <h1 class="text-2xl font-bold text-center mb-8">ARA WA7ED TAXI HNA</h1>
         <form action="{{ route('Chaufeur.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
